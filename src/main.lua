@@ -7,11 +7,15 @@ Game = require("game.Game")
 
 
 IsPaused = false
+Player = {
+    gameRunning = false
+}
 Time = 0
 Screen = {}
 Obstacles = {}
 
 function love.load()
+    Player.gameRunning = true
     love.window.maximize()
     math.randomseed(os.time());
     Screen = UserInterface.windowResized()
@@ -23,20 +27,18 @@ function love.load()
 end
 
 function love.update(dt)
-    if IsPaused then return end
+    if IsPaused then return end -- maybe a pause menu
+    if Player.gameRunning == false then return end -- add menu here in future
     Time = Time + dt
     Game.spawnObstacles()
     Bird.update(dt)
     for i, v in ipairs(Obstacles) do
-        if not v then
-            table.remove(Obstacles, i)
-        else
-            v:update(dt)
+        if v:update(dt) ~= -1 then
             if Game.checkCollisons(dt, v) then
+                Player.gameRunning = false
                 break;
             end
         end
-
     end
 end
 

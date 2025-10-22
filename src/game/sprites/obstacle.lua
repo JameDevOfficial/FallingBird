@@ -10,7 +10,7 @@ end
 function Obstacle:new(opts)
     opts       = opts or {}
     local o    = setmetatable({}, self)
-    o.scale    = opts.scale or { X = .3, Y = .3 }
+    o.scale    = opts.scale or { X = .5, Y = .5 }
     o.color    = opts.color or { 0.2, 1, 0.2, 1 }
     o.position = opts.position or { X = 100, Y = 100 }
     o.velocity = opts.velocity or { X = 0, Y = -100 }
@@ -64,7 +64,9 @@ function Obstacle:update(dt)
     if self.position.Y + h < 0 then
         self.position.Y = 0
         self:removeFrom(Obstacles)
+        return -1
     end
+    return 1
 end
 
 function Obstacle:render()

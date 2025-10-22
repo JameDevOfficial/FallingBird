@@ -8,6 +8,29 @@ M.drawFrame = function ()
     for i,v in ipairs(Obstacles) do
         v:render()
     end
+    if Player.gameRunning == false then
+        M.lostScreen()
+    end
+end
+
+M.lostScreen = function ()
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.print("You lost!")
+    M.drawCenteredText(
+        math.floor(Screen.centerX),
+        math.floor(Screen.centerY),
+        100, 30,
+        "You lost!",
+        2
+    )
+end
+
+function M.drawCenteredText(rectX, rectY, rectWidth, rectHeight, text, scale)
+    local font       = love.graphics.getFont()
+    font:setFilter("nearest")
+    local textWidth  = font:getWidth(text)
+    local textHeight = font:getHeight()
+    love.graphics.print(text, math.floor(rectX + rectWidth / 2), math.floor(rectY + rectHeight / 2), 0,scale, scale, textWidth / 2, textHeight / 2)
 end
 
 M.windowResized = function()
