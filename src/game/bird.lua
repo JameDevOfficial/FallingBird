@@ -35,16 +35,20 @@ bird.update = function(dt)
     local w, h = bird.getScaledDimensions()
 
     if bird.position.X < 0 then
-        bird.position.X = 0; bird.velocity.X = 0
+        bird.position.X = 0
+        bird.velocity.X = -bird.velocity.X
     end
     if bird.position.Y < 0 then
-        bird.position.Y = 0; bird.velocity.Y = 0
+        bird.position.Y = 0
+        bird.velocity.Y = -bird.velocity.Y
     end
     if bird.position.X + w > Screen.X then
-        bird.position.X = Screen.X - w; bird.velocity.X = 0
+        bird.position.X = Screen.X - w
+        bird.velocity.X = - bird.velocity.X
     end
     if bird.position.Y + h > Screen.Y then
-        bird.position.Y = Screen.Y - h; bird.velocity.Y = 0
+        bird.position.Y = Screen.Y - h
+        bird.velocity.Y = - bird.velocity.Y
     end
 
     if love.keyboard.isDown("a") or love.keyboard.isDown("left") then
@@ -52,6 +56,15 @@ bird.update = function(dt)
     end
     if love.keyboard.isDown("d") or love.keyboard.isDown("right") then
         bird.velocity.X = bird.velocity.X + bird.speed * dt
+    end
+
+    if Settings.verticalMovement then
+        if love.keyboard.isDown("s") or love.keyboard.isDown("down") then
+            bird.velocity.Y = bird.velocity.Y + bird.speed * dt
+        end
+        if love.keyboard.isDown("w") or love.keyboard.isDown("up") then
+            bird.velocity.Y = bird.velocity.Y - bird.speed * dt
+        end
     end
 end
 
