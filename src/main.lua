@@ -13,9 +13,13 @@ World = {
 }
 
 function love.load()
-    love.window.maximize()
+    --love.window.maximize()
     math.randomseed(os.time());
     Screen = UserInterface.windowResized()
+
+    --Bird
+    Bird.createBird()
+    Bird.centerPos()
 end
 
 function love.update(dt)
@@ -26,11 +30,10 @@ function love.update(dt)
 end
 
 function love.draw()
-    
+    UserInterface.drawFrame(Screen)
     Suit.draw()
     if Settings.DEBUG == true then
         DebugWorldDraw(World.world, ((Screen.X - Screen.minSize) / 2), ((Screen.Y - Screen.minSize) / 2), Screen.minSize,
             Screen.minSize)
     end
-
 end

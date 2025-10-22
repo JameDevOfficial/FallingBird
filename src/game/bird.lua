@@ -1,15 +1,31 @@
-local M = {}
+local bird = {}
 
-local bird = {
-    radius = 50,
-    color = {},
-    position = {}
-}
+bird.radius = 50
+bird.scale = {X = .3, Y = .3}
+bird.color = {0.2,1,0.2,1}
+bird.position = {X=100, Y=100}
 
-M.createBird = function(screen, world )
-    bird.shape = love.physics.newCircleShape(bird.radius);
-    bird.body = love.physics.newBody(world.world, bird.position.X, bird.position.Y, "dynamic")
-    bird.fixture = love.physics.newFixture(bird.body, bird.shape, 1) 
+bird.createBird = function()
+    bird.sprite= love.graphics.newImage("assets/franz.png" )
 end
 
-return M;
+bird.getScaledDimensions = function ()
+    local w, h = bird.sprite:getDimensions()
+    return w * bird.scale.X, h*bird.scale.Y
+end
+
+bird.centerPos = function()
+    local w, h = bird.getScaledDimensions()
+    bird.position = {
+        X = Screen.centerX - w / 2,
+        Y = Screen.centerY - h / 2
+    }
+end
+
+bird.render = function()
+    love.graphics.setColor(1,1,1)
+    love.graphics.draw(bird.sprite, bird.position.X, bird.position.Y, 0, bird.scale.X, bird.scale.Y)
+end
+
+
+return bird;

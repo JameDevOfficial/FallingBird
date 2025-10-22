@@ -1,5 +1,12 @@
 local M = {}
 
+M.drawFrame = function (screen)
+    love.graphics.setBackgroundColor(1, 1, 1)
+    --Bird
+    love.graphics.setColor(Bird.color[1], Bird.color[2], Bird.color[3], Bird.color[4])
+    Bird.render()
+end
+
 M.windowResized = function()
     local screen = {
         X = 0,
