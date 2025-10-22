@@ -26,11 +26,11 @@ function love.update(dt)
     if IsPaused then return end
 
     World.world.update(World.world, dt)
-
+    Bird.update(dt)
 end
 
 function love.draw()
-    UserInterface.drawFrame(Screen)
+    UserInterface.drawFrame()
     Suit.draw()
     if Settings.DEBUG == true then
         DebugWorldDraw(World.world, ((Screen.X - Screen.minSize) / 2), ((Screen.Y - Screen.minSize) / 2), Screen.minSize,

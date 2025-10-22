@@ -1,6 +1,6 @@
 local M = {}
 
-M.drawFrame = function (screen)
+M.drawFrame = function ()
     love.graphics.setBackgroundColor(1, 1, 1)
     --Bird
     love.graphics.setColor(Bird.color[1], Bird.color[2], Bird.color[3], Bird.color[4])
