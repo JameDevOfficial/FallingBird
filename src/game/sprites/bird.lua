@@ -1,6 +1,5 @@
 local bird = {}
 
-bird.radius = 50
 bird.scale = { X = .3, Y = .3 }
 bird.color = { 0.2, 1, 0.2, 1 }
 bird.position = { X = 100, Y = 100 }

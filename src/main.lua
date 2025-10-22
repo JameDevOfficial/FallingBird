@@ -1,19 +1,17 @@
 Suit = require("libs.suit")
 Settings = require("game.settings")
 UserInterface = require("game.ui")
-Bird = require("game.bird")
-DebugWorldDraw = require("libs.debugWorldDraw")
+Bird = require("game.sprites.bird")
+Obstacle = require("game.sprites.obstacle")
 
 
 IsPaused = false
 
 Screen = {}
-World = {
-    world = love.physics.newWorld(0, 100, true)
-}
+Obstacles = {}
 
 function love.load()
-    --love.window.maximize()
+    love.window.maximize()
     math.randomseed(os.time());
     Screen = UserInterface.windowResized()
 
@@ -25,15 +23,15 @@ end
 function love.update(dt)
     if IsPaused then return end
 
-    World.world.update(World.world, dt)
     Bird.update(dt)
 end
 
 function love.draw()
     UserInterface.drawFrame()
     Suit.draw()
-    if Settings.DEBUG == true then
-        DebugWorldDraw(World.world, ((Screen.X - Screen.minSize) / 2), ((Screen.Y - Screen.minSize) / 2), Screen.minSize,
-            Screen.minSize)
-    end
+end
+
+function love.resize()
+    Screen = UserInterface.windowResized()
+    print("resize to " .. Screen.X ..", " .. Screen.Y)
 end
