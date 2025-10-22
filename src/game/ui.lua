@@ -5,6 +5,9 @@ M.drawFrame = function ()
     --Bird
     love.graphics.setColor(Bird.color[1], Bird.color[2], Bird.color[3], Bird.color[4])
     Bird.render()
+    for i,v in ipairs(Obstacles) do
+        v:render()
+    end
 end
 
 M.windowResized = function()

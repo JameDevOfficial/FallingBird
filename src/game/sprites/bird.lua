@@ -8,7 +8,7 @@ bird.damping = 0.98
 bird.speed = 1000
 
 bird.createBird = function()
-    bird.sprite = love.graphics.newImage("assets/franz.png")
+    bird.sprite = love.graphics.newImage("assets/stylish_franz.png")
 end
 
 bird.getScaledDimensions = function()
@@ -71,6 +71,12 @@ bird.render = function()
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(bird.sprite, bird.position.X, bird.position.Y, 0, bird.scale.X, bird.scale.Y)
 end
+
+function bird.getAABB()
+    local w, h = bird.getScaledDimensions()
+    return bird.position.X, bird.position.Y, w, h
+end
+
 
 
 return bird;
