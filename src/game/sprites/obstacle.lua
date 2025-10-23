@@ -8,31 +8,40 @@ function Obstacle.createSprite()
 end
 
 function Obstacle.createPair()
-    local openRangeRand = math.random(Settings.obstacles.spawnBetween[1], Settings.obstacles.spawnBetween[2])
-    local openRange = { start = openRangeRand, ending = openRangeRand }
-    table.insert(Obstacles, Obstacle:new { position = { X = 0, Y = Screen.Y }, align = "left" })
-    table.insert(Obstacles, Obstacle:new { position = { X = 0, Y = Screen.Y }, align = "right" })
+    local openRangeRandStart = math.random(Settings.obstacles.spawnBetween[1],
+        Settings.obstacles.spawnBetween[2] - Settings.obstacles.gapWidth)
+    local rightStartPercent = openRangeRandStart + Settings.obstacles.gapWidth
+    local rightWidthPercent = 100 - rightStartPercent
+    local gapPixels = {
+        start = openRangeRandStart / 100 * Screen.X,
+        ending = rightWidthPercent / 100 * Screen.X
+    }
+    local leftPosX = 0
+    local rightPosX = (rightStartPercent / 100 * Screen.X)
+    table.insert(Obstacles,
+        Obstacle:new { position = { X = leftPosX, Y = Screen.Y }, size = { W = gapPixels.start, H = 80 }, align = "left" })
+    table.insert(Obstacles,
+        Obstacle:new { position = { X = rightPosX, Y = Screen.Y }, size = { W = gapPixels.ending, H = 80 }, align = "right" })
 end
 
 function Obstacle:new(opts)
     opts       = opts or {}
     local o    = setmetatable({}, self)
     o.scale    = opts.scale or { X = 1, Y = 1 }
-    o.size     = opts.size or { W = 600, H = 80 }
+    o.size     = opts.size or { W = 0, H = 0 }
     o.color    = opts.color or { 0.2, 1, 0.2, 1 }
     o.position = opts.position or { X = 100, Y = 100 }
     o.velocity = opts.velocity or { X = 0, Y = -100 }
-    o.speed    = opts.speed or 1000
+    o.speed    = opts.speed or Settings.obstacles.speed
     o.sprite   = opts.sprite or Obstacle._sharedSprite
     o.align    = opts.align or "left"
-    o.offset = opts.offset or {X = 0, Y = 0}
+    o.offset   = opts.offset or { X = 0, Y = 0 }
 
     if o.align == "left" then
         o.position.X = 0
+        o.offset.X = 0
     elseif o.align == "right" then
-        local w, h = o:getScaledDimensions()
-        o.offset.X = o.sprite:getWidth()
-        o.position.X = Screen.X
+        o.offset.X = 0
     end
     return o
 end
@@ -61,8 +70,6 @@ function Obstacle:removeFrom(list)
     self:destroy()
 end
 
-
-
 function Obstacle:update(dt)
     self.position.Y = self.position.Y + self.velocity.Y * dt
     self.velocity.Y = self.velocity.Y
@@ -83,13 +90,12 @@ function Obstacle:render()
     local xScale = (self.size.W / w) * self.scale.X
     local yScale = (self.size.H / h) * self.scale.Y
     love.graphics.draw(self.sprite, self.position.X, self.position.Y, 0, xScale, yScale, self.offset.X, self.offset.Y)
-    print(w.. ", " .. h)
 end
 
 function Obstacle:getActualPostion()
-    return 
-        self.position.X - (self.offset.X or 0),
-        self.position.Y - (self.offset.Y or 0)
+    return
+        self.position.X - (self.offset.X * self.scale.X),
+        self.position.Y - (self.offset.Y * self.scale.Y)
 end
 
 function Obstacle:getScaledDimensions()
