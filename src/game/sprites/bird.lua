@@ -5,7 +5,6 @@ bird.color = { 0.2, 1, 0.2, 1 }
 bird.position = { X = 100, Y = 100 }
 bird.velocity = { X = 0, Y = 0 }
 bird.damping = 0.98
-bird.speed = 1000
 
 bird.createBird = function()
     bird.sprite = love.graphics.newImage("assets/stylish_franz.png")
@@ -52,10 +51,10 @@ bird.update = function(dt)
 
     if Settings.verticalMovement then
         if love.keyboard.isDown("s") or love.keyboard.isDown("down") then
-            bird.velocity.Y = bird.velocity.Y + bird.speed * dt
+            bird.velocity.Y = bird.velocity.Y + Settings.bird.speed * dt
         end
         if love.keyboard.isDown("w") or love.keyboard.isDown("up") then
-            bird.velocity.Y = bird.velocity.Y - bird.speed * dt
+            bird.velocity.Y = bird.velocity.Y - Settings.bird.speed * dt
         end
     end
 end
@@ -63,7 +62,7 @@ end
 -- Direction: -1: left
 --             1: right
 bird.flap = function (direction)
-    bird.velocity.X = bird.velocity.X + (bird.speed * direction) 
+    bird.velocity.X = bird.velocity.X + (Settings.bird.speed * direction) 
 end
 
 function love.keypressed(key, scancode, isrepeat)
