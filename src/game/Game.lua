@@ -1,7 +1,7 @@
 local M = {}
 M.lastTime = 0
 M.spawnObstacles = function()
-    if Time - M.lastTime > Settings.pipeDelay or M.lastTime == 0 then
+    if Time - M.lastTime > Settings.obstacles.delay or M.lastTime == 0 then
         table.insert(Obstacles, Obstacle:new { position = { X = 0, Y = Screen.Y }, align = "left" })
         table.insert(Obstacles, Obstacle:new { position = { X = 0, Y = Screen.Y }, align = "right" })
         M.lastTime = Time
@@ -25,7 +25,7 @@ end
 function M.checkCollisons(dt, o)
     local bx, by, bw, bh = Bird.getAABB()
     local ox, oy, ow, oh = o:getAABB()
-    if M.aabbIntersect(bx, by, bw, bh, ox, oy, ow, oh, 25) then
+    if M.aabbIntersect(bx, by, bw, bh, ox, oy, ow, oh, 15) then
         print("collision with obstacle", o)
         return true
     end

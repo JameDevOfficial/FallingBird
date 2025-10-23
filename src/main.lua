@@ -5,7 +5,6 @@ Bird = require("game.sprites.bird")
 Obstacle = require("game.sprites.obstacle")
 Game = require("game.Game")
 
-
 IsPaused = false
 Player = {
     gameRunning = false
