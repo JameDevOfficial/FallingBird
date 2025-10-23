@@ -50,13 +50,6 @@ bird.update = function(dt)
         bird.velocity.Y = - bird.velocity.Y
     end
 
-    if love.keyboard.isDown("a") or love.keyboard.isDown("left") then
-        bird.velocity.X = bird.velocity.X - bird.speed * dt
-    end
-    if love.keyboard.isDown("d") or love.keyboard.isDown("right") then
-        bird.velocity.X = bird.velocity.X + bird.speed * dt
-    end
-
     if Settings.verticalMovement then
         if love.keyboard.isDown("s") or love.keyboard.isDown("down") then
             bird.velocity.Y = bird.velocity.Y + bird.speed * dt
@@ -66,6 +59,21 @@ bird.update = function(dt)
         end
     end
 end
+
+-- Direction: -1: left
+--             1: right
+bird.flap = function (direction)
+    bird.velocity.X = bird.velocity.X + (bird.speed * direction) 
+end
+
+function love.keypressed(key, scancode, isrepeat)
+    if key == 'a' or key == 'left' then
+        bird.flap(-1)
+    elseif key == 'd' or key == 'right' then
+        bird.flap(1)
+    end
+end
+
 
 bird.render = function()
     love.graphics.setColor(1, 1, 1)
