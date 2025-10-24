@@ -1,4 +1,3 @@
-Suit = require("libs.suit")
 Settings = require("game.settings")
 UserInterface = require("game.ui")
 Bird = require("game.sprites.bird")
