@@ -7,6 +7,8 @@ Falling Bird is a game that is like flappy bird but with a falling bird. The gam
 [![FallingBird](https://hackatime-badge.hackclub.com/U087BUC6ZFW/FallingBird?logo=hackclub&logoColor=white)](https://hackatime-badge.hackclub.com/U087BUC6ZFW/FallingBird) 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Commits](https://img.shields.io/github/commit-activity/t/JameDevOfficial/FallingBird?label=Commits&color=F28C28&logo=git&logoColor=white)](https://github.com/JameDevOfficial/FallingBird/commits/main)
+<br />
+[![pages-build-deployment](https://github.com/JameDevOfficial/FallingBird/actions/workflows/pages/pages-build-deployment/badge.svg?branch=WebDemo)](https://github.com/JameDevOfficial/FallingBird/actions/workflows/pages/pages-build-deployment)
 
 </div>
 
