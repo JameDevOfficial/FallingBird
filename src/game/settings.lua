@@ -19,9 +19,9 @@ M.obstacles.imageSize = {W = 1000, H=100}
 
 M.clouds = {}
 M.clouds.spawnChance = 50 -- in %
-M.clouds.speed = 200
-M.clouds.delay = 0.5
+M.clouds.speed = 125
+M.clouds.delay = 0.35
 M.clouds.image = "assets/cloud.png"
-M.clouds.imageSize = { W = 140, H = 100 }
+M.clouds.imageSize = { W = 135, H = 100 }
 
 return M;

@@ -1,9 +1,14 @@
 local M = {}
 
+M.rgbToDecimal = function(r, g, b)
+    return { r / 255, g / 255, b / 255 };
+end
+
 local fontDefault = love.graphics.newFont(20)
+local lightBlue = M.rgbToDecimal(154, 220, 243)
 
 M.drawFrame = function ()
-    love.graphics.setBackgroundColor(M.rgbToDecimal(255,255,255))
+    love.graphics.setBackgroundColor(lightBlue)
     love.graphics.setFont(fontDefault)
     --Clouds
     for i, v in ipairs(Clouds) do
@@ -31,7 +36,7 @@ M.drawFrame = function ()
 end
 
 M.drawMenu = function ()
-    love.graphics.setBackgroundColor(M.rgbToDecimal(154, 220, 243))
+    love.graphics.setBackgroundColor(lightBlue)
     love.graphics.setFont(fontDefault)
 
     M.drawCenteredText(math.floor(Screen.centerX),
@@ -92,8 +97,5 @@ M.windowResized = function()
     return screen
 end
 
-M.rgbToDecimal = function (r, g, b)
-    return r / 255, g / 255, b / 255;
-end
 
 return M;

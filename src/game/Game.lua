@@ -31,7 +31,7 @@ M.spawnCloudRandom = function()
         print("Spawned cloud at " .. (Settings.clouds.spawnChance / spawn) * Screen.X)
         Cloud.spawnCloud(Cloud:new({
             position = {
-                X = (Settings.clouds.spawnChance / spawn) * Screen.X,
+                X = math.random(Settings.clouds.imageSize.W / 2, Screen.X - Settings.clouds.imageSize.W / 2),
                 Y = (Screen.Y)
             },
             size = {

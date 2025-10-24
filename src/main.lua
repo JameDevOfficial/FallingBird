@@ -30,7 +30,6 @@ end
 
 function love.update(dt)
     if IsPaused then return end -- maybe a pause menu
-
     if Player.gameRunning == false then return end -- add menu here in future
     Time = Time + dt
     Game.spawnObstacles()
@@ -54,9 +53,9 @@ function love.resize()
 end
 
 function love.keypressed(key, scancode, isRepeat)
-    if key == 'a' or key == 'left' then
+    if (key == 'a' or key == 'left') and Player.gameRunning == true then
         Bird.flap(-1)
-    elseif key == 'd' or key == 'right' then
+    elseif (key == 'd' or key == 'right') and Player.gameRunning == true then
         Bird.flap(1)
     end
 
