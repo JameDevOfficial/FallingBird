@@ -4,13 +4,13 @@ M.DEBUG = true
 M.verticalMovement = false 
 
 M.bird = {}
-M.bird.speed = 350
+M.bird.speed = 50000
 M.bird.tolerance = 15
 
 M.obstacles = {}
-M.obstacles.gapWidth = 20
+M.obstacles.gapWidth = 20 -- %
 M.obstacles.spawnBetween = {20,80}
-M.obstacles.delay = 4
-M.obstacles.speed = 1000
+M.obstacles.delay = 2
+M.obstacles.speed = 200
 
 return M;

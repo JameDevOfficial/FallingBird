@@ -3,6 +3,7 @@ UserInterface = require("game.ui")
 Bird = require("game.sprites.bird")
 Obstacle = require("game.sprites.obstacle")
 Game = require("game.Game")
+BgLayer = require("game.sprites.BgLayer")
 
 IsPaused = false
 Player = {
@@ -15,7 +16,7 @@ Obstacles = {}
 
 function love.load()
     Player.gameRunning = true
-    love.window.maximize()
+    --love.window.maximize()
     math.randomseed(os.time());
     Screen = UserInterface.windowResized()
 
@@ -31,7 +32,8 @@ function love.update(dt)
     Time = Time + dt
     Game.spawnObstacles()
     Bird.update(dt)
-    for i, v in ipairs(Obstacles) do
+    for i = #Obstacles, 1, -1 do 
+        local v = Obstacles[i]
         if v:update(dt) ~= -1 then
             if Game.checkCollisons(dt, v) then
                 Player.gameRunning = false
@@ -43,7 +45,6 @@ end
 
 function love.draw()
     UserInterface.drawFrame()
-    Suit.draw()
 end
 
 function love.resize()

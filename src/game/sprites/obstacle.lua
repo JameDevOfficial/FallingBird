@@ -31,7 +31,7 @@ function Obstacle:new(opts)
     o.size     = opts.size or { W = 0, H = 0 }
     o.color    = opts.color or { 0.2, 1, 0.2, 1 }
     o.position = opts.position or { X = 100, Y = 100 }
-    o.velocity = opts.velocity or { X = 0, Y = -100 }
+    o.velocity = opts.velocity or { X = 0, Y = -Settings.obstacles.speed }
     o.speed    = opts.speed or Settings.obstacles.speed
     o.sprite   = opts.sprite or Obstacle._sharedSprite
     o.align    = opts.align or "left"
@@ -72,7 +72,6 @@ end
 
 function Obstacle:update(dt)
     self.position.Y = self.position.Y + self.velocity.Y * dt
-    self.velocity.Y = self.velocity.Y
 
     local w, h = self:getScaledDimensions()
 

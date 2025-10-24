@@ -62,7 +62,8 @@ end
 -- Direction: -1: left
 --             1: right
 bird.flap = function (direction)
-    bird.velocity.X = bird.velocity.X + (Settings.bird.speed * direction) 
+    
+    bird.velocity.X = (Settings.bird.speed * direction) * love.timer.getDelta()
 end
 
 function love.keypressed(key, scancode, isrepeat)
