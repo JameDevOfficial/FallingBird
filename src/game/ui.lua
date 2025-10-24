@@ -1,7 +1,10 @@
 local M = {}
 
+local fontDefault = love.graphics.newFont(20)
+
 M.drawFrame = function ()
     love.graphics.setBackgroundColor(1, 1, 1)
+    love.graphics.setFont(fontDefault)
     --Bird
     love.graphics.setColor(Bird.color[1], Bird.color[2], Bird.color[3], Bird.color[4])
     Bird.render()
@@ -23,22 +26,23 @@ end
 
 M.lostScreen = function ()
     love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.print("You lost!")
     M.drawCenteredText(
         math.floor(Screen.centerX),
         math.floor(Screen.centerY),
         100, 30,
         "You lost!",
-        2
+        50
     )
 end
 
-function M.drawCenteredText(rectX, rectY, rectWidth, rectHeight, text, scale)
-    local font       = love.graphics.getFont()
+function M.drawCenteredText(rectX, rectY, rectWidth, rectHeight, text, fontSize)
+    local font = love.graphics.newFont(fontSize)
+    love.graphics.setFont(font)
     font:setFilter("nearest")
     local textWidth  = font:getWidth(text)
     local textHeight = font:getHeight()
-    love.graphics.print(text, math.floor(rectX + rectWidth / 2), math.floor(rectY + rectHeight / 2), 0,scale, scale, textWidth / 2, textHeight / 2)
+    love.graphics.print(text, math.floor(rectX + rectWidth / 2), math.floor(rectY + rectHeight / 2), 0, 1, 1,
+    textWidth / 2, textHeight / 2)
 end
 
 M.windowResized = function()

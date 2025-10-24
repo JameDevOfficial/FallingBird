@@ -4,7 +4,7 @@ Obstacle.__index = Obstacle
 Obstacle._sharedSprite = nil
 
 function Obstacle.createSprite()
-    Obstacle._sharedSprite = love.graphics.newImage("assets/obstacle.png")
+    Obstacle._sharedSprite = love.graphics.newImage(Settings.obstacles.image)
 end
 
 function Obstacle.createPair()

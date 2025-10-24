@@ -7,7 +7,7 @@ bird.velocity = { X = 0, Y = 0 }
 bird.damping = 0.98
 
 bird.createBird = function()
-    bird.sprite = love.graphics.newImage("assets/stylish_franz.png")
+    bird.sprite = love.graphics.newImage(Settings.bird.image)
 end
 
 bird.getScaledDimensions = function()
@@ -63,7 +63,7 @@ end
 --             1: right
 bird.flap = function (direction)
     
-    bird.velocity.X = (Settings.bird.speed * direction) * love.timer.getDelta()
+    bird.velocity.X = bird.velocity.X + (Settings.bird.speed * direction)
 end
 
 function love.keypressed(key, scancode, isrepeat)
