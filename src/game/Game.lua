@@ -29,15 +29,17 @@ M.spawnCloudRandom = function()
     local spawn = math.random(1, 1000)
     if spawn < Settings.clouds.spawnChance * 10 then
         print("Spawned cloud at " .. (Settings.clouds.spawnChance / spawn) * Screen.X)
+        local randScale = (math.random() / 2 + 0.75)
         Cloud.spawnCloud(Cloud:new({
             position = {
                 X = math.random(Settings.clouds.imageSize.W / 2, Screen.X - Settings.clouds.imageSize.W / 2),
                 Y = (Screen.Y)
             },
             size = {
-                W = Settings.clouds.imageSize.W,
-                H = Settings.clouds.imageSize.H
-            }
+                W = Settings.clouds.imageSize.W * randScale,
+                H = Settings.clouds.imageSize.H * randScale
+            },
+            velocity = {Y=-Settings.clouds.speed * randScale, X=0}
         }))
     end
 end

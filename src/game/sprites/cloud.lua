@@ -21,7 +21,6 @@ function Cloud:new(opts)
     o.color    = opts.color or { 0.2, 1, 0.2, 1 }
     o.position = opts.position or { X = 100, Y = 100 }
     o.velocity = opts.velocity or { X = 0, Y = -Settings.clouds.speed }
-    o.speed    = opts.speed or Settings.clouds.speed
     o.sprite = opts.sprite or Cloud._sharedSprite
     o.offset = opts.offset or { X = 0, Y = 0 }
 
@@ -43,7 +42,6 @@ function Cloud:destroy()
     self.scale = nil
     self.size = nil
     self.color = nil
-    self.speed = nil
     setmetatable(self, nil)
 end
 
