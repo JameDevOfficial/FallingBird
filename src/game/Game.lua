@@ -1,6 +1,6 @@
 local M = {}
 M.lastTimeO = 2
-M.lastTimeC = 2
+M.lastTimeC = Settings.obstacles.delay
 
 M.updateSprites = function(Sprites, dt, checkCollision)
     for i = #Sprites, 1, -1 do

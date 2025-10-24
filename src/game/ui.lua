@@ -7,35 +7,30 @@ end
 local fontDefault = love.graphics.newFont(20)
 local lightBlue = M.rgbToDecimal(154, 220, 243)
 
-M.drawFrame = function ()
+M.drawFrame = function()
     love.graphics.setBackgroundColor(lightBlue)
     love.graphics.setFont(fontDefault)
     --Clouds
     for i, v in ipairs(Clouds) do
         v:render()
     end
-
     --Bird
     love.graphics.setColor(Bird.color[1], Bird.color[2], Bird.color[3], Bird.color[4])
     Bird.render()
-
     --Obstacles
-    for i,v in ipairs(Obstacles) do
+    for i, v in ipairs(Obstacles) do
         v:render()
     end
-
-
     -- points
-    love.graphics.setColor(0,0,0)
-    love.graphics.print("Points: "..Player.points)
-
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.print("Points: " .. Player.points)
     --Screens
     if Player.gameRunning == false then
         M.lostScreen()
     end
 end
 
-M.drawMenu = function ()
+M.drawMenu = function()
     love.graphics.setBackgroundColor(lightBlue)
     love.graphics.setFont(fontDefault)
 
@@ -45,7 +40,7 @@ M.drawMenu = function ()
         math.floor(Screen.centerY + 10), "Press enter to start", 30)
 end
 
-M.lostScreen = function ()
+M.lostScreen = function()
     love.graphics.setColor(0, 0, 0, 1)
     M.drawCenteredText(
         math.floor(Screen.centerX),
@@ -62,8 +57,8 @@ function M.drawCenteredText(centerX, centerY, text, fontSize)
     local textWidth  = font:getWidth(text)
     local textHeight = font:getHeight()
 
-    local drawX = centerX - textWidth / 2
-    local drawY = centerY - textHeight / 2
+    local drawX      = centerX - textWidth / 2
+    local drawY      = centerY - textHeight / 2
     love.graphics.print(text, math.floor(drawX), math.floor(drawY))
 end
 

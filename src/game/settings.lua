@@ -10,7 +10,7 @@ M.bird.image = "assets/stylish_franz.png"
 
 M.obstacles = {}
 M.obstacles.gapWidth = 20 -- %
-M.obstacles.spawnBetween = {20,80}
+M.obstacles.spawnBetween = {10,90}
 M.obstacles.delay = 2
 M.obstacles.speed = 200
 M.obstacles.imageL = "assets/pipeLeft.png"
