@@ -12,18 +12,16 @@ end
 function Obstacle.createPair()
     local openRangeRandStart = math.random(Settings.obstacles.spawnBetween[1],
         Settings.obstacles.spawnBetween[2] - Settings.obstacles.gapWidth)
-    local rightStartPercent = openRangeRandStart + Settings.obstacles.gapWidth
-    local rightWidthPercent = 100 - rightStartPercent
-    local gapPixels = {
-        start = openRangeRandStart / 100 * Screen.X,
-        ending = rightWidthPercent / 100 * Screen.X
-    }
-    local leftPosX = 0
-    local rightPosX = (rightStartPercent / 100 * Screen.X)
+    local gapStartPx         = openRangeRandStart / 100 * Screen.X
+    local gapEndPx           = (openRangeRandStart + Settings.obstacles.gapWidth) / 100 * Screen.X
+
+    local leftPosX           = gapStartPx - Settings.obstacles.imageSize.W
+    local rightPosX          = gapEndPx
+
     table.insert(Obstacles,
-        Obstacle:new { position = { X = leftPosX, Y = Screen.Y }, size = { W = gapPixels.start, H = 80 }, align = "left" })
+        Obstacle:new { position = { X = leftPosX, Y = Screen.Y }, size = { W = Settings.obstacles.imageSize.W, H = Settings.obstacles.imageSize.H }, align = "left" })
     table.insert(Obstacles,
-        Obstacle:new { position = { X = rightPosX, Y = Screen.Y }, size = { W = gapPixels.ending, H = 80 }, align = "right" })
+        Obstacle:new { position = { X = rightPosX, Y = Screen.Y }, size = { W = Settings.obstacles.imageSize.W, H = Settings.obstacles.imageSize.H }, align = "right" })
 end
 
 function Obstacle:new(opts)
@@ -40,15 +38,15 @@ function Obstacle:new(opts)
     else
         o.sprite = opts.sprite or Obstacle._sharedSpriteRight
     end
-    o.align    = opts.align or "left"
-    o.offset   = opts.offset or { X = 0, Y = 0 }
+    o.align  = opts.align or "left"
+    o.offset = opts.offset or { X = 0, Y = 0 }
 
-    if o.align == "left" then
-        o.position.X = 0
-        o.offset.X = 0
-    elseif o.align == "right" then
-        o.offset.X = 0
-    end
+    -- if o.align == "left" then
+    --     o.position.X = 0
+    --     o.offset.X = 0
+    -- elseif o.align == "right" then
+    --     o.offset.X = 0
+    -- end
     return o
 end
 

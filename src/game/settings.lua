@@ -15,5 +15,6 @@ M.obstacles.delay = 2
 M.obstacles.speed = 200
 M.obstacles.imageL = "assets/pipeLeft.png"
 M.obstacles.imageR = "assets/pipeRight.png"
+M.obstacles.imageSize = {W = 1000, H=100}
 
 return M;
