@@ -29,20 +29,21 @@ M.lostScreen = function ()
     M.drawCenteredText(
         math.floor(Screen.centerX),
         math.floor(Screen.centerY),
-        100, 30,
         "You lost!",
         50
     )
 end
 
-function M.drawCenteredText(rectX, rectY, rectWidth, rectHeight, text, fontSize)
+function M.drawCenteredText(centerX, centerY, text, fontSize)
     local font = love.graphics.newFont(fontSize)
     love.graphics.setFont(font)
     font:setFilter("nearest")
     local textWidth  = font:getWidth(text)
     local textHeight = font:getHeight()
-    love.graphics.print(text, math.floor(rectX + rectWidth / 2), math.floor(rectY + rectHeight / 2), 0, 1, 1,
-    textWidth / 2, textHeight / 2)
+
+    local drawX = centerX - textWidth / 2
+    local drawY = centerY - textHeight / 2
+    love.graphics.print(text, math.floor(drawX), math.floor(drawY))
 end
 
 M.windowResized = function()
