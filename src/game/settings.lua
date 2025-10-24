@@ -13,6 +13,7 @@ M.obstacles.gapWidth = 20 -- %
 M.obstacles.spawnBetween = {20,80}
 M.obstacles.delay = 2
 M.obstacles.speed = 200
-M.obstacles.image = "assets/obstacle.png"
+M.obstacles.imageL = "assets/pipeLeft.png"
+M.obstacles.imageR = "assets/pipeRight.png"
 
 return M;

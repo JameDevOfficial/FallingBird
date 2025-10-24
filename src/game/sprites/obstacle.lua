@@ -1,10 +1,12 @@
 local Obstacle = {}
 Obstacle.__index = Obstacle
 
-Obstacle._sharedSprite = nil
+Obstacle._sharedSpriteLeft = nil
+Obstacle._sharedSpriteRight = nil
 
 function Obstacle.createSprite()
-    Obstacle._sharedSprite = love.graphics.newImage(Settings.obstacles.image)
+    Obstacle._sharedSpriteLeft = love.graphics.newImage(Settings.obstacles.imageL)
+    Obstacle._sharedSpriteRight = love.graphics.newImage(Settings.obstacles.imageR)
 end
 
 function Obstacle.createPair()
@@ -33,7 +35,11 @@ function Obstacle:new(opts)
     o.position = opts.position or { X = 100, Y = 100 }
     o.velocity = opts.velocity or { X = 0, Y = -Settings.obstacles.speed }
     o.speed    = opts.speed or Settings.obstacles.speed
-    o.sprite   = opts.sprite or Obstacle._sharedSprite
+    if opts.align == "left" then
+        o.sprite = opts.sprite or Obstacle._sharedSpriteLeft
+    else
+        o.sprite = opts.sprite or Obstacle._sharedSpriteRight
+    end
     o.align    = opts.align or "left"
     o.offset   = opts.offset or { X = 0, Y = 0 }
 
