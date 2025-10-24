@@ -33,6 +33,7 @@ end
 M.drawMenu = function()
     love.graphics.setBackgroundColor(lightBlue)
     love.graphics.setFont(fontDefault)
+    love.graphics.setColor(0,0,0,1)
 
     M.drawCenteredText(math.floor(Screen.centerX),
         math.floor(Screen.centerY - 30), "Falling Bird!", 50)
@@ -42,12 +43,12 @@ end
 
 M.lostScreen = function()
     love.graphics.setColor(0, 0, 0, 1)
-    M.drawCenteredText(
-        math.floor(Screen.centerX),
-        math.floor(Screen.centerY),
-        "You lost!",
-        50
-    )
+    M.drawCenteredText(math.floor(Screen.centerX),
+        math.floor(Screen.centerY + 55), "Points: "..Player.points, 30)
+    M.drawCenteredText(math.floor(Screen.centerX),
+        math.floor(Screen.centerY - 30), "You lost!", 50)
+    M.drawCenteredText(math.floor(Screen.centerX),
+        math.floor(Screen.centerY + 10), "Press enter to try again", 30)
 end
 
 function M.drawCenteredText(centerX, centerY, text, fontSize)

@@ -63,4 +63,13 @@ function love.keypressed(key, scancode, isRepeat)
         Player.gameRunning = true
         print("Start!")
     end
+    if key == "return" and Player.gameStarted == true and Player.gameRunning == false then     --enter
+        Obstacles = {}
+        Clouds = {}
+        Player.points = 0
+        Bird.velocity = {X=0,Y=0}
+        Bird.rotation = 0
+        Player.gameRunning = true
+        print("Start!")
+    end
 end
