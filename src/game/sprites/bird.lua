@@ -5,6 +5,12 @@ bird.color = { 0.2, 1, 0.2, 1 }
 bird.position = { X = 100, Y = 100 }
 bird.velocity = { X = 0, Y = 0 }
 bird.damping = 0.98
+bird.rotation = 0
+
+local function round(num, point)
+    local temp = 10 ^ (point or 0)
+    return math.floor(num * temp) / temp
+end
 
 bird.createBird = function()
     bird.sprite = love.graphics.newImage(Settings.bird.image)
@@ -29,6 +35,7 @@ bird.update = function(dt)
 
     bird.velocity.X = bird.velocity.X * bird.damping
     bird.velocity.Y = bird.velocity.Y * bird.damping
+    bird.rotation = round(bird.rotation * bird.damping, 2)
 
     local w, h = bird.getScaledDimensions()
 
@@ -62,18 +69,19 @@ end
 -- Direction: -1: left
 --             1: right
 bird.flap = function (direction)
-    
+    bird.rotation = 15 * direction
     bird.velocity.X = bird.velocity.X + (Settings.bird.speed * direction)
 end
 
 bird.render = function()
     love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(bird.sprite, bird.position.X, bird.position.Y, 0, bird.scale.X, bird.scale.Y)
+    love.graphics.draw(bird.sprite, bird.position.X, bird.position.Y, (bird.rotation * math.pi) / (180), bird.scale.X,
+    bird.scale.Y, bird.sprite:getWidth() / 2, bird.sprite:getHeight() / 2)
 end
 
 function bird.getAABB()
     local w, h = bird.getScaledDimensions()
-    return bird.position.X, bird.position.Y, w, h
+    return bird.position.X - w / 2, bird.position.Y - h / 2, w, h
 end
 
 

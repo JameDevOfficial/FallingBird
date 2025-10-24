@@ -4,7 +4,6 @@ Game = require("game.Game")
 ---------------------------------
 Bird = require("game.sprites.bird")
 Obstacle = require("game.sprites.obstacle")
-BgLayer = require("game.sprites.BgLayer")
 Cloud = require("game.sprites.cloud")
 
 IsPaused = false
@@ -29,7 +28,7 @@ function love.load()
 end
 
 function love.update(dt)
-    if IsPaused then return end -- maybe a pause menu
+    if IsPaused then return end                    -- maybe a pause menu
     if Player.gameRunning == false then return end -- add menu here in future
     Time = Time + dt
     Game.spawnObstacles()
@@ -49,7 +48,7 @@ end
 
 function love.resize()
     Screen = UserInterface.windowResized()
-    print("resize to " .. Screen.X ..", " .. Screen.Y)
+    print("resize to " .. Screen.X .. ", " .. Screen.Y)
 end
 
 function love.keypressed(key, scancode, isRepeat)
