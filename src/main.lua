@@ -7,6 +7,7 @@ Game = require("game.Game")
 
 IsPaused = false
 Player = {
+    points = 0,
     gameRunning = false
 }
 Time = 0

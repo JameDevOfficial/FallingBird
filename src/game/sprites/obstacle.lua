@@ -76,6 +76,11 @@ function Obstacle:update(dt)
 
     local w, h = self:getScaledDimensions()
 
+    if self.position.Y < Screen.Y / 2 and not self.gotPoints and self.align == "left" then
+        Player.points = Player.points + 1
+        self.gotPoints = true
+    end
+
     if self.position.Y + h < 0 then
         self.position.Y = 0
         self:removeFrom(Obstacles)

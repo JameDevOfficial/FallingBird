@@ -5,9 +5,17 @@ M.drawFrame = function ()
     --Bird
     love.graphics.setColor(Bird.color[1], Bird.color[2], Bird.color[3], Bird.color[4])
     Bird.render()
+
+    --Obstacles
     for i,v in ipairs(Obstacles) do
         v:render()
     end
+
+    -- points
+    love.graphics.setColor(0,0,0)
+    love.graphics.print("Points: "..Player.points)
+
+    --Screens
     if Player.gameRunning == false then
         M.lostScreen()
     end

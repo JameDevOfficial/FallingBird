@@ -1,7 +1,7 @@
 local M = {}
 
 M.DEBUG = true
-M.verticalMovement = true
+M.verticalMovement = false 
 
 M.bird = {}
 M.bird.speed = 350
