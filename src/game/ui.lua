@@ -3,8 +3,13 @@ local M = {}
 local fontDefault = love.graphics.newFont(20)
 
 M.drawFrame = function ()
-    love.graphics.setBackgroundColor(1, 1, 1)
+    love.graphics.setBackgroundColor(M.rgbToDecimal(255,255,255))
     love.graphics.setFont(fontDefault)
+    --Clouds
+    for i, v in ipairs(Clouds) do
+        v:render()
+    end
+
     --Bird
     love.graphics.setColor(Bird.color[1], Bird.color[2], Bird.color[3], Bird.color[4])
     Bird.render()
@@ -14,6 +19,7 @@ M.drawFrame = function ()
         v:render()
     end
 
+
     -- points
     love.graphics.setColor(0,0,0)
     love.graphics.print("Points: "..Player.points)
@@ -22,6 +28,16 @@ M.drawFrame = function ()
     if Player.gameRunning == false then
         M.lostScreen()
     end
+end
+
+M.drawMenu = function ()
+    love.graphics.setBackgroundColor(M.rgbToDecimal(154, 220, 243))
+    love.graphics.setFont(fontDefault)
+
+    M.drawCenteredText(math.floor(Screen.centerX),
+        math.floor(Screen.centerY - 30), "Falling Bird!", 50)
+    M.drawCenteredText(math.floor(Screen.centerX),
+        math.floor(Screen.centerY + 10), "Press enter to start", 30)
 end
 
 M.lostScreen = function ()
@@ -74,6 +90,10 @@ M.windowResized = function()
     screen.bottomLeft.Y = screen.centerY + half
 
     return screen
+end
+
+M.rgbToDecimal = function (r, g, b)
+    return r / 255, g / 255, b / 255;
 end
 
 return M;

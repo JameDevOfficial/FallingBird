@@ -66,15 +66,6 @@ bird.flap = function (direction)
     bird.velocity.X = bird.velocity.X + (Settings.bird.speed * direction)
 end
 
-function love.keypressed(key, scancode, isrepeat)
-    if key == 'a' or key == 'left' then
-        bird.flap(-1)
-    elseif key == 'd' or key == 'right' then
-        bird.flap(1)
-    end
-end
-
-
 bird.render = function()
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(bird.sprite, bird.position.X, bird.position.Y, 0, bird.scale.X, bird.scale.Y)

@@ -1,9 +1,44 @@
 local M = {}
-M.lastTime = 0
+M.lastTimeO = 2
+M.lastTimeC = 2
+
+M.updateSprites = function(Sprites, dt, checkCollision)
+    for i = #Sprites, 1, -1 do
+        local v = Sprites[i]
+
+        if v:update(dt) ~= -1 and checkCollision then
+            if M.checkCollisons(dt, v) then
+                Player.gameRunning = false
+                break;
+            end
+        end
+    end
+end
 M.spawnObstacles = function()
-    if Time - M.lastTime > Settings.obstacles.delay or M.lastTime == 0 then
+    if Time - M.lastTimeO > Settings.obstacles.delay then
         Obstacle.createPair()
-        M.lastTime = Time
+        M.lastTimeO = Time
+    end
+end
+
+M.spawnCloudRandom = function()
+    if Time - M.lastTimeC < Settings.clouds.delay then
+        return
+    end
+    M.lastTimeC = Time
+    local spawn = math.random(1, 1000)
+    if spawn < Settings.clouds.spawnChance * 10 then
+        print("Spawned cloud at " .. (Settings.clouds.spawnChance / spawn) * Screen.X)
+        Cloud.spawnCloud(Cloud:new({
+            position = {
+                X = (Settings.clouds.spawnChance / spawn) * Screen.X,
+                Y = (Screen.Y)
+            },
+            size = {
+                W = Settings.clouds.imageSize.W,
+                H = Settings.clouds.imageSize.H
+            }
+        }))
     end
 end
 

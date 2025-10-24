@@ -1,4 +1,5 @@
 local Obstacle = {}
+Obstacles = {}
 Obstacle.__index = Obstacle
 
 Obstacle._sharedSpriteLeft = nil
