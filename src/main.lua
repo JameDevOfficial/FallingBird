@@ -25,6 +25,9 @@ function love.load()
     Bird.centerPos()
     Obstacle.createSprite()
     Cloud.createSprite()
+
+        collectgarbage("setpause", 100)
+    collectgarbage("setstepmul", 200)
 end
 
 function love.update(dt)
@@ -61,7 +64,6 @@ function love.keypressed(key, scancode, isRepeat)
     if key == "return" and Player.gameStarted == false then --enter
         Player.gameStarted = true
         Player.gameRunning = true
-        print("Start!")
     end
     if key == "return" and Player.gameStarted == true and Player.gameRunning == false then     --enter
         Obstacles = {}
@@ -70,6 +72,6 @@ function love.keypressed(key, scancode, isRepeat)
         Bird.velocity = {X=0,Y=0}
         Bird.rotation = 0
         Player.gameRunning = true
-        print("Start!")
+        collectgarbage("collect")
     end
 end

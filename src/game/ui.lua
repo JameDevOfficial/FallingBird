@@ -5,6 +5,8 @@ M.rgbToDecimal = function(r, g, b)
 end
 
 local fontDefault = love.graphics.newFont(20)
+local font30 = love.graphics.newFont(30)
+local font50 = love.graphics.newFont(50)
 local lightBlue = M.rgbToDecimal(154, 220, 243)
 
 M.drawFrame = function()
@@ -34,6 +36,16 @@ M.drawFrame = function()
     local fpsText = tostring(fps)
     local textWidth = fontDefault:getWidth(fpsText)
     love.graphics.print(fpsText, Screen.X - textWidth - 10, 10)
+    M.drawDebug()
+end
+
+M.drawDebug = function()
+    if Settings.DEBUG == true then
+        local usedMem = collectgarbage("count")
+        local memText = string.format("Mem: %.0fKB | Obs: %d | Clouds: %d", 
+            usedMem, #Obstacles, #Clouds)
+        love.graphics.print(memText, 10, 40)
+    end
 end
 
 M.drawMenu = function()
@@ -42,36 +54,33 @@ M.drawMenu = function()
     love.graphics.setColor(0, 0, 0, 1)
 
     M.drawCenteredText(math.floor(Screen.centerX),
-        math.floor(Screen.centerY - 30), "Falling Bird!", 50)
+        math.floor(Screen.centerY - 30), "Falling Bird!", font50)
     M.drawCenteredText(math.floor(Screen.centerX),
-        math.floor(Screen.centerY + 10), "Press enter to start", 30)
+        math.floor(Screen.centerY + 10), "Press enter to start", font30)
 
-    local fontSize = 20
     local text = "Use W/D or left/right to move."
-    local font = love.graphics.newFont(fontSize)
-    love.graphics.setFont(font)
-    font:setFilter("nearest")
-    local textWidth  = font:getWidth(text)
-    local textHeight = font:getHeight()
+    love.graphics.setFont(fontDefault)
+    fontDefault:setFilter("nearest")
+    local textWidth  = fontDefault:getWidth(text)
+    local textHeight = fontDefault:getHeight()
     local drawX = Screen.centerX - textWidth / 2
     local drawY = Screen.Y - textHeight - 10
     love.graphics.print(text, math.floor(drawX), math.floor(drawY))
 
-    --text, x, y, r, sx, sy, ox, oy, kx, ky
+    M.drawDebug()
 end
 
 M.lostScreen = function()
     love.graphics.setColor(0, 0, 0, 1)
     M.drawCenteredText(math.floor(Screen.centerX),
-        math.floor(Screen.centerY + 50), "Points: " .. Player.points, 30)
+        math.floor(Screen.centerY + 50), "Points: " .. Player.points, font30)
     M.drawCenteredText(math.floor(Screen.centerX),
-        math.floor(Screen.centerY - 40), "You lost!", 50)
+        math.floor(Screen.centerY - 40), "You lost!", font50)
     M.drawCenteredText(math.floor(Screen.centerX),
-        math.floor(Screen.centerY + 10), "Press enter to try again", 30)
+        math.floor(Screen.centerY + 10), "Press enter to try again", font30)
 end
 
-function M.drawCenteredText(centerX, centerY, text, fontSize)
-    local font = love.graphics.newFont(fontSize)
+function M.drawCenteredText(centerX, centerY, text, font)
     love.graphics.setFont(font)
     font:setFilter("nearest")
     local textWidth  = font:getWidth(text)

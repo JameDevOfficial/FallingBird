@@ -34,25 +34,22 @@ function Cloud:new(opts)
 end
 
 function Cloud:destroy()
-    print("Destroyed Cloud")
-    self.shape = nil
-    self.sprite = nil
     self.position = nil
     self.velocity = nil
     self.scale = nil
     self.size = nil
     self.color = nil
-    setmetatable(self, nil)
+    self.offset = nil
 end
 
 function Cloud:removeFrom(list)
     for i = #list, 1, -1 do
         if list[i] == self then
+            self:destroy()
             table.remove(list, i)
-            break
+            return
         end
     end
-    self:destroy()
 end
 
 function Cloud:update(dt)

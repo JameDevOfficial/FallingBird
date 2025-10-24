@@ -52,9 +52,6 @@ function Obstacle:new(opts)
 end
 
 function Obstacle:destroy()
-    print("Destroyed")
-    self.shape = nil
-    self.sprite = nil
     self.position = nil
     self.velocity = nil
     self.scale = nil
@@ -62,17 +59,18 @@ function Obstacle:destroy()
     self.color = nil
     self.speed = nil
     self.align = nil
-    setmetatable(self, nil)
+    self.offset = nil
+    self.gotPoints = nil
 end
 
 function Obstacle:removeFrom(list)
     for i = #list, 1, -1 do
         if list[i] == self then
+            self:destroy()
             table.remove(list, i)
-            break
+            return
         end
     end
-    self:destroy()
 end
 
 function Obstacle:update(dt)
