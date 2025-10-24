@@ -21,6 +21,14 @@ M.spawnObstacles = function()
     end
 end
 
+local function sortCloudsBySpeed()
+    table.sort(Clouds, function(a, b)
+        -- Sort by speed (slower clouds first, so they're drawn behind)
+        -- Since velocity.Y is negative, smaller absolute value = slower
+        return math.abs(a.velocity.Y) < math.abs(b.velocity.Y)
+    end)
+end
+
 M.spawnCloudRandom = function()
     if Time - M.lastTimeC < Settings.clouds.delay then
         return
@@ -41,6 +49,7 @@ M.spawnCloudRandom = function()
             },
             velocity = {Y=-Settings.clouds.speed * randScale, X=0}
         }))
+        sortCloudsBySpeed()
     end
 end
 

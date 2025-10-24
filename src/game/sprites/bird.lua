@@ -4,7 +4,7 @@ bird.scale = { X = .3, Y = .3 }
 bird.color = { 0.2, 1, 0.2, 1 }
 bird.position = { X = 100, Y = 100 }
 bird.velocity = { X = 0, Y = 0 }
-bird.damping = 0.98
+bird.damping = 0.3
 bird.rotation = 0
 
 local function round(num, point)
@@ -33,9 +33,9 @@ bird.update = function(dt)
     bird.position.X = bird.position.X + bird.velocity.X * dt
     bird.position.Y = bird.position.Y + bird.velocity.Y * dt
 
-    bird.velocity.X = bird.velocity.X * bird.damping
-    bird.velocity.Y = bird.velocity.Y * bird.damping
-    bird.rotation = round(bird.rotation * bird.damping, 2)
+    bird.velocity.X = bird.velocity.X * bird.damping ^dt
+    bird.velocity.Y = bird.velocity.Y * bird.damping ^ dt
+    bird.rotation = round(bird.rotation * bird.damping ^ dt, 2)
 
     local w, h = bird.getScaledDimensions()
 

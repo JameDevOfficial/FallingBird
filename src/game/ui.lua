@@ -23,30 +23,49 @@ M.drawFrame = function()
     end
     -- points
     love.graphics.setColor(0, 0, 0)
-    love.graphics.print("Points: " .. Player.points)
+    love.graphics.print("Points: " .. Player.points, 10, 10)
     --Screens
     if Player.gameRunning == false then
         M.lostScreen()
     end
+    --fps
+    love.graphics.setFont(fontDefault)
+    local fps = love.timer.getFPS()
+    local fpsText = tostring(fps)
+    local textWidth = fontDefault:getWidth(fpsText)
+    love.graphics.print(fpsText, Screen.X - textWidth - 10, 10)
 end
 
 M.drawMenu = function()
     love.graphics.setBackgroundColor(lightBlue)
     love.graphics.setFont(fontDefault)
-    love.graphics.setColor(0,0,0,1)
+    love.graphics.setColor(0, 0, 0, 1)
 
     M.drawCenteredText(math.floor(Screen.centerX),
         math.floor(Screen.centerY - 30), "Falling Bird!", 50)
     M.drawCenteredText(math.floor(Screen.centerX),
         math.floor(Screen.centerY + 10), "Press enter to start", 30)
+
+    local fontSize = 20
+    local text = "Use W/D or left/right to move."
+    local font = love.graphics.newFont(fontSize)
+    love.graphics.setFont(font)
+    font:setFilter("nearest")
+    local textWidth  = font:getWidth(text)
+    local textHeight = font:getHeight()
+    local drawX = Screen.centerX - textWidth / 2
+    local drawY = Screen.Y - textHeight - 10
+    love.graphics.print(text, math.floor(drawX), math.floor(drawY))
+
+    --text, x, y, r, sx, sy, ox, oy, kx, ky
 end
 
 M.lostScreen = function()
     love.graphics.setColor(0, 0, 0, 1)
     M.drawCenteredText(math.floor(Screen.centerX),
-        math.floor(Screen.centerY + 55), "Points: "..Player.points, 30)
+        math.floor(Screen.centerY + 50), "Points: " .. Player.points, 30)
     M.drawCenteredText(math.floor(Screen.centerX),
-        math.floor(Screen.centerY - 30), "You lost!", 50)
+        math.floor(Screen.centerY - 40), "You lost!", 50)
     M.drawCenteredText(math.floor(Screen.centerX),
         math.floor(Screen.centerY + 10), "Press enter to try again", 30)
 end
