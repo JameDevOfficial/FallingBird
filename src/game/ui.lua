@@ -30,23 +30,84 @@ M.drawFrame = function()
     if Player.gameRunning == false then
         M.lostScreen()
     end
-    --fps
-    love.graphics.setFont(fontDefault)
-    local fps = love.timer.getFPS()
-    local fpsText = tostring(fps)
-    local textWidth = fontDefault:getWidth(fpsText)
-    love.graphics.print(fpsText, Screen.X - textWidth - 10, 10)
+
     M.drawDebug()
 end
 
 M.drawDebug = function()
     if Settings.DEBUG == true then
+        love.graphics.setFont(fontDefault)
+        love.graphics.setColor(0, 0, 0, 1)
+
+        local y = fontDefault:getHeight() + 10
+
+        -- FPS
+        local fps = love.timer.getFPS()
+        local fpsText = string.format("FPS: %d", fps)
+        love.graphics.print(fpsText, 10, y)
+        y = y + fontDefault:getHeight()
+
+        -- Performance
+        local stats = love.graphics.getStats()
         local usedMem = collectgarbage("count")
-        local memText = string.format("Mem: %.0fKB | Obs: %d | Clouds: %d", 
-            usedMem, #Obstacles, #Clouds)
-        love.graphics.print(memText, 10, 40)
+        local perfText = string.format(
+            "Memory: %.2f MB\n" ..
+            "GC Pause: %d%%\n" ..
+            "Draw Calls: %d\n" ..
+            "Canvas Switches: %d\n" ..
+            "Texture Memory: %.2f MB\n" ..
+            "Images: %d\n" ..
+            "Fonts: %d\n" ..
+            "Obstacles: %d\n" ..
+            "Clouds: %d",
+            usedMem / 1024,
+            collectgarbage("count") > 0 and collectgarbage("count") / 10 or 0,
+            stats.drawcalls,
+            stats.canvasswitches,
+            stats.texturememory / 1024 / 1024,
+            stats.images,
+            stats.fonts,
+            #Obstacles,
+            #Clouds
+        )
+        love.graphics.print(perfText, 10, y)
+        y = y + fontDefault:getHeight() * 9
+
+        -- Game
+        local dt = love.timer.getDelta()
+        local avgDt = love.timer.getAverageDelta()
+        local playerText = string.format(
+            "Game Started: %s\n" ..
+            "Game Running: %s\n" ..
+            "Bird X: %.1f Y: %.1f\n" ..
+            "Velocity X: %.1f Y: %.1f\n" ..
+            "Rotation: %.1f°\n" ..
+            "Delta Time: %.4fs (%.1f ms)\n" ..
+            "Avg Delta: %.4fs (%.1f ms)\n" ..
+            "Time: %.2fs",
+            tostring(Player.gameStarted),
+            tostring(Player.gameRunning),
+            Bird.position.X, Bird.position.Y,
+            Bird.velocity.X, Bird.velocity.Y,
+            Bird.rotation,
+            dt, dt * 1000,
+            avgDt, avgDt * 1000,
+            Time
+        )
+        love.graphics.print(playerText, 10, y)
+        y = y + fontDefault:getHeight() * 10
+
+        -- System Info
+        local renderer = love.graphics.getRendererInfo and love.graphics.getRendererInfo() or ""
+        local systemText = string.format(
+            "OS: %s\nGPU: %s",
+            love.system.getOS(),
+            select(4, love.graphics.getRendererInfo()) or 0
+        )
+        love.graphics.print(systemText, 10, y)
     end
 end
+
 
 M.drawMenu = function()
     love.graphics.setBackgroundColor(lightBlue)

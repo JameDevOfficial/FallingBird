@@ -1,6 +1,6 @@
 local M = {}
 
-M.DEBUG = true
+M.DEBUG = false
 M.verticalMovement = false 
 
 M.bird = {}
